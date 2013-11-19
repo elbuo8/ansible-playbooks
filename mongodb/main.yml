@@ -1,0 +1,15 @@
+---
+- name: Get the apt-key
+  sudo: True
+  apt_key: url=http://docs.mongodb.org/10gen-gpg-key.asc state=present
+
+- name: Create the mongodb.list file
+  sudo: True
+  copy: src=mongodb.list.j2 dest=/etc/apt/sources.list.d/mongodb.list 
+
+- name: Run apt-get update & install mongodb
+  sudo: True
+  apt: update_cache=yes pkg=mongodb-10gen state=latest
+          
+          
+

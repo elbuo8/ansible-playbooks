@@ -1,0 +1,21 @@
+---
+
+- name: Add java7 repo
+  sudo: True
+  apt_repository: repo=ppa:webupd8team/java state=present
+
+- name: License dep
+  sudo: True
+  apt: pkg=debconf-utils state=present
+
+- name: Accept the license
+  sudo: True
+  shell: echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+
+- name: Install java7
+  sudo: True
+  apt: update_cache=yes pkg=oracle-java7-installer state=present
+
+- name: Make jave7 default
+  sudo: True
+  apt: update_cache=yes pkg=oracle-java7-set-default state=present
